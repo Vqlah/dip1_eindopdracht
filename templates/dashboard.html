@@ -1,23 +1,10 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
-</head>
-
-<body>
-
-    <marquee scrollamount="50" behavior="alternate">
-    </marquee>
-
-</body>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-  
+    <title>Dashboard</title>
+   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
@@ -25,24 +12,30 @@
     <header>
         <div class="container">
             <div id="branding">
-                
-                </ul>
-            </nav>
+               
+            </div>
+           
         </div>
     </header>
 
     <div class="container mt-5">
         <div class="jumbotron text-center">
-            <h1 class="display-4">🟩Home Page🟩</h1>
-            <p class="lead">Dit is de homepagina van je Flask-app. Gebruik de navigatie om in te loggen of te registreren.</p>
+            <h1 class="display-4">Welkom, {{ current_user.id }}!</h1>
+            <p class="lead">Dit is je dashboard. Hier kun je je persoonlijke gegevens bekijken en beheren.</p>
             <hr class="my-4">
-            <p>Navigeer naar andere pagina's met de onderstaande knoppen:</p>
-            <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
-            <a class="btn btn-secondary btn-lg" href="{{ url_for('register') }}" role="button">Register</a>
         </div>
+        <nav>
+            <ul class="nav">
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('telefoonboek') }}">Telefoonboek</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('films') }}">Filmportfolio</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                
+            </ul>
+        </nav>
     </div>
 
-    <footer>
+    <footer class="mt-5">
         <div class="container text-center">
             <p>Mijn Website &copy; 2024</p>
         </div>

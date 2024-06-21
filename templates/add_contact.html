@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voeg Contact Toe</title>
+</head>
+<body>
+    <h1>Voeg Contact Toe</h1>
+    <form method="post" action="{{ url_for('add_contact') }}">
+        <label for="naam">Naam:</label>
+        <input type="text" id="naam" name="naam">
+        <label for="telefoonnummer">Telefoonnummer:</label>
+        <input type="text" id="telefoonnummer" name="telefoonnummer">
+        <button type="submit">Toevoegen</button>
+    </form>
+</body>
+</html>

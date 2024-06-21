@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmportfolio</title>
+    <link href="../static/films.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Filmportfolio</h1>
+        <div class="films-header">
+        </div>
+    </header>
+    <main>
+        <div class="films-viewed">
+            <h3>Bekeken Films</h3>
+            <div class="sort-container">
+                <label for="sort-order">Sorteer op titel:</label>
+                <select id="sort-order">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                </select>
+            </div>
+            <ul id="viewed-films-list">
+            </ul>
+        </div>
+        <div class="add-film">
+            <h2>Film Toevoegen</h2>
+            <form id="add-film-form">
+                <label for="film-title">Titel:</label>
+                <input type="text" id="film-title" name="filmTitle" required>
+                <label for="watch-date">Datum bekeken:</label>
+                <input type="date" id="watch-date" name="watchDate" required>
+                <button type="submit">Toevoegen</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <button class="secondary" onclick="goToDashboard()">Terug naar Dashboard</button>
+        <p>&copy; mijn eindopdracht van dip</p>
+    </footer>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('editModal')">&times;</span>
+            <h2>Film Bewerken</h2>
+            <form id="edit-film-form">
+                <label for="edit-film-title">Titel:</label>
+                <input type="text" id="edit-film-title" name="editFilmTitle" required>
+                <label for="edit-film-watch-date">Datum bekeken:</label>
+                <input type="date" id="edit-film-watch-date" name="editFilmWatchDate" required>
+                <button type="button" onclick="saveEditedFilm()">Opslaan</button>
+            </form>
+        </div>
+    </div>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('deleteModal')">&times;</span>
+            <h2>Film Verwijderen</h2>
+            <p>Weet je zeker dat je deze film wilt verwijderen?</p>
+            <button class="danger" onclick="confirmDelete()">Verwijderen</button>
+        </div>
+    </div>
+    <script>
+        function displayViewedFilms() {
+            const viewedFilms = JSON.parse(sessionStorage.getItem('viewedFilms')) || [];
+            const sortOrder = document.getElementById('sort-order').value;
+            if (sortOrder === 'asc') {
+                viewedFilms.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortOrder === 'desc') {
+                viewedFilms.sort((a, b) => b.title.localeCompare(a.title));
+            }
+            const viewedFilmsList = document.getElementById("viewed-films-list");
+            viewedFilmsList.innerHTML = "";
+            viewedFilms.forEach((film, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <div class="film-info">
+                        <strong>${film.title}</strong> (bekeken op ${film.watchedDate})
+                    </div>
+                    <div class="film-actions">
+                        <button class="secondary" onclick="openEditModal(${index})">Bewerken</button>
+                        <button class="danger" onclick="openDeleteModal(${index})">Verwijderen</button>
+                    </div>
+                `;
+                viewedFilmsList.appendChild(li);
+            });
+        }
+        const addFilmForm = document.getElementById("add-film-form");
+        addFilmForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const filmTitle = document.getElementById("film-title").value;
+            const watchDate = document.getElementById("watch-date").value;
+            if (filmTitle.trim() !== "" && watchDate.trim() !== "") {
+                const viewedFilms = JSON.parse(sessionStorage.getItem('viewedFilms')) || [];
+                viewedFilms.push({ title: filmTitle, watchedDate: watchDate });
+                sessionStorage.setItem('viewedFilms', JSON.stringify(viewedFilms));
+                displayViewedFilms();
+                addFilmForm.reset();
+            }
+        });
+        function openEditModal(index) {
+            const film = JSON.parse(sessionStorage.getItem('viewedFilms'))[index];
+            const editFilmTitleInput = document.getElementById("edit-film-title");
+            const editFilmWatchDateInput = document.getElementById("edit-film-watch-date");
+            editFilmTitleInput.value = film.title;
+            editFilmWatchDateInput.value = film.watchedDate;
+            document.getElementById("editModal").style.display = "flex";
+            document.getElementById("editModal").dataset.index = index;
+        }
+        function saveEditedFilm() {
+            const index = document.getElementById("editModal").dataset.index;
+            const updatedTitle = document.getElementById("edit-film-title").value;
+            const updatedWatchDate = document.getElementById("edit-film-watch-date").value;
+            if (updatedTitle.trim() !== "" && updatedWatchDate.trim() !== "") {
+                const viewedFilms = JSON.parse(sessionStorage.getItem('viewedFilms')) || [];
+                viewedFilms[index].title = updatedTitle;
+                viewedFilms[index].watchedDate = updatedWatchDate;
+                sessionStorage.setItem('viewedFilms', JSON.stringify(viewedFilms));
+                displayViewedFilms();
+                closeModal('editModal');
+            }
+        }
+        function openDeleteModal(index) {
+            document.getElementById("deleteModal").style.display = "flex";
+            document.getElementById("deleteModal").dataset.index = index;
+        }
+        function confirmDelete() {
+            const index = document.getElementById("deleteModal").dataset.index;
+            const viewedFilms = JSON.parse(sessionStorage.getItem('viewedFilms')) || [];
+            viewedFilms.splice(index, 1);
+            sessionStorage.setItem('viewedFilms', JSON.stringify(viewedFilms));
+            displayViewedFilms();
+            closeModal('deleteModal');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        function goToDashboard() {
+            window.location.href = '/dashboard';
+        }
+        displayViewedFilms();
+        document.getElementById('sort-order').addEventListener('change', function() {
+            const sortOrder = this.value;
+            sortFilms(sortOrder);
+        });
+        function sortFilms(order) {
+            const viewedFilms = JSON.parse(sessionStorage.getItem('viewedFilms')) || [];
+            if (order === 'asc') {
+                viewedFilms.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (order === 'desc') {
+                viewedFilms.sort((a, b) => b.title.localeCompare(a.title));
+            }
+            sessionStorage.setItem('viewedFilms', JSON.stringify(viewedFilms));
+            displayViewedFilms();
+        }
+    </script>
+</body>
+</html>

@@ -1,64 +1,64 @@
 Zelfbeoordeling assessment
 
-Naam: 
+Naam: Sem Jager                 
 
-Klas: 
+Klas: ITB4-2b
 
 
 # Assignments
 
 ## Voorwaardelijk
-0. Het gemaakte werk is authentiek
-1. Repareren Applicatie (# punten)
-2. Pagina's aantrekkelijk vormgegeven (# punten)
+0. Het gemaakte werk is authentiek v
+1. Repareren Applicatie (10 punten)
+2. Pagina's aantrekkelijk vormgegeven (10 punten)
 
 ## Functionaliteiten
 
 ### Login-functionaliteit
-Zelfbeoordeling: ( # Punten)
+Zelfbeoordeling: ( 30 Punten)
 
-[ ] Login
+[v] Login
 
-[ ] Register
+[v] Register
 
-[ ] Dashboard voor ingelogde gebruikers
+[v] Dashboard voor ingelogde gebruikers
 
-[ ] Uitloggen
+[v] Uitloggen
 
 
 ### Telefoonboek
-Zelfbeoordeling: ( # Punten)
+Zelfbeoordeling: ( 20 Punten)
 
-[ ] Weergeven namen & telefoonnummers uit de database
+[v] Weergeven namen & telefoonnummers uit de database
 
-[ ] Toevoegen telefoonnummer
+[v] Toevoegen telefoonnummer
 
-[ ] Wijzigen telefoonnummer
+[v] Wijzigen telefoonnummer
 
-[ ] Verwijderen telefoonnummer
+[v] Verwijderen telefoonnummer
 
 
-[ ] Bonus (beschrijf hieronder wat je hebt gedaan)
+[x] Bonus (beschrijf hieronder wat je hebt gedaan)
 
 ### Film Portfolio
-Zelfbeoordeling: ( # Punten)
+Zelfbeoordeling: ( 25 Punten)
 
-[ ] Weergeven bekeken films
+[v] Weergeven bekeken films
 
-[ ] Bekeken films toevoegen
+[v] Bekeken films toevoegen
 
-[ ] Films toevoegen
+[v] Films toevoegen
 
-[ ] Films wijzigen
+[v] Films wijzigen
 
-[ ] Films verwijderen
+[v] Films verwijderen
 
-
-[ ] Bonus (beschrijf hieronder wat je hebt gedaan)
+[v] Bonus (beschrijf hieronder wat je hebt gedaan)
+Films kunnen gefilterd worden op alfabetische volgorde op basis van de titel
 
 ## Bonus functionaliteit
-Zelfbeoordeling: ( # Punten)
+Zelfbeoordeling: ( 0 Punten)
 
-[ ] Bonus (beschrijf hieronder wat je hebt gedaan)
+[x] Bonus (beschrijf hieronder wat je hebt gedaan)
 
 Beschrijf hier jouw functionaliteit uitgebreid.

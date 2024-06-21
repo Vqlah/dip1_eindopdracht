@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bewerk Contact</title>
+</head>
+<body>
+    <h1>Bewerk Contact</h1>
+    <form method="post" action="{{ url_for('edit_contact', naam=naam) }}">
+        <label for="nieuwe_naam">Nieuwe Naam:</label>
+        <input type="text" id="nieuwe_naam" name="nieuwe_naam" value="{{ naam }}">
+        <label for="nieuw_telefoonnummer">Nieuw Telefoonnummer:</label>
+        <input type="text" id="nieuw_telefoonnummer" name="nieuw_telefoonnummer" value="{{ telefoonnummer }}">
+        <button type="submit">Bijwerken</button>
+    </form>
+</body>
+</html>

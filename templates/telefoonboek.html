@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefoonboek</title>
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Mijn Website</h1>
+            </div>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <h2>Telefoonboek</h2>
+        
+        <div class="mb-3">
+            <form method="post" action="{{ url_for('add_contact') }}">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Naam" name="naam" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Telefoonnummer" name="telefoonnummer" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Toevoegen</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Naam</th>
+                    <th scope="col">Telefoonnummer</th>
+                    <th scope="col">Acties</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in telefoonboek %}
+                <tr>
+                    <td>{{ entry[0] }}</td>
+                    <td>{{ entry[1] }}</td>
+                    <td>
+                        <td>
+                            <form method="post" action="{{ url_for('edit_contact', naam=entry[0]) }}">
+                                <button type="submit" class="btn btn-sm btn-primary">Wijzigen</button>
+                            </form>
+                            <a href="{{ url_for('delete_contact', naam=entry[0]) }}" class="btn btn-sm btn-danger">Verwijder</a>
+                        </td>
+                    </td>
+                    <td>
+    
+</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="mt-5">
+        <div class="container text-center">
+            <p>Mijn Website &copy; 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
